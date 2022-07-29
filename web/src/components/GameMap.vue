@@ -1,6 +1,6 @@
 <template>
     <div ref="parent" class="gamemap">
-        <canvas ref="canvas"></canvas>
+        <canvas ref="canvas" tabindex="0"></canvas>
     </div>
 </template>
 
@@ -32,5 +32,8 @@ export default{
     display: flex;
     justify-content: center;
     align-items: center;
+}
+canvas:focus{
+    outline: medium;
 }
 </style>

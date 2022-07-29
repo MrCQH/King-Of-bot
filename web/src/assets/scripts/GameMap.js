@@ -1,5 +1,6 @@
 import { GameObject } from "./GameObject";
 import { Wall } from "./Wall";
+import { Snack } from './snack';
 
 export class GameMap extends GameObject{
     constructor(ctx, parent){
@@ -10,10 +11,32 @@ export class GameMap extends GameObject{
         this.L = 0; // 一个单位的长度
 
         this.rows = 13;
-        this.cols = 13;
+        this.cols = 14;
 
         this.inner_walls_count = 20;
         this.walls = [];
+
+        this.snacks = [
+            new Snack({id: 0, color: "#4b76e5", r: this.rows - 2, c: 1}, this),
+            new Snack({id: 1, color: "#ea544a", r: 1, c: this.cols - 2}, this),
+        ];
+    }
+
+    check_valid(cell){
+        for (const wall of this.walls){
+            if (wall.r === cell.r && wall.c === cell.c) return false;
+        }
+
+        for (const snack of this.snacks){
+            let k = snack.cells.length;
+            if (snack.check_tail_increasing()){
+                k --;
+            }
+            for (let i = 0; i < k; i ++){
+                if (cell.r === snack.cells[i].r && cell.c === snack.cells[i].c) return false;
+            }
+        }
+        return true;
     }
 
     check_connectivity(g, sx, sy, tx, ty){
@@ -39,7 +62,7 @@ export class GameMap extends GameObject{
 
         // 确定给左右两边画墙
         for (let r = 0; r < this.rows; r ++){
-            g[r][0] = g[r][this.rows - 1] = true;
+            g[r][0] = g[r][this.cols - 1] = true;
         }
 
         // 确定给上下两边画墙
@@ -51,9 +74,9 @@ export class GameMap extends GameObject{
             for (let j = 0; j < 1000; j ++){
                 let r = parseInt(Math.random() * this.rows);
                 let c = parseInt(Math.random() * this.cols);
-                if (g[r][c] || g[c][r]) continue;
+                if (g[r][c] || g[this.rows - 1 - r][this.cols - 1 - c]) continue;
                 if (r == this.rows - 2 && c == 1 || r == 1 && c == this.cols - 2) continue;
-                g[r][c] = g[c][r] = true;
+                g[r][c] = g[this.rows - 1 - r][this.cols - 1 - c] = true;
                 break;
             }
         }
@@ -73,10 +96,27 @@ export class GameMap extends GameObject{
         return true;
     }
 
+    add_listening_events(){
+        this.ctx.canvas.focus();
+
+        const [snack0, snack1] = this.snacks;
+        this.ctx.canvas.addEventListener("keydown", e =>{
+            if (e.key === 'w') snack0.set_direction(0);
+            else if (e.key === 'd') snack0.set_direction(1);
+            else if (e.key === 's') snack0.set_direction(2);
+            else if (e.key === 'a') snack0.set_direction(3);
+            else if (e.key === 'ArrowUp') snack1.set_direction(0);
+            else if (e.key === 'ArrowRight') snack1.set_direction(1);
+            else if (e.key === 'ArrowDown') snack1.set_direction(2);
+            else if (e.key === 'ArrowLeft') snack1.set_direction(3);
+        });
+    }
+
     start(){
-        for (let i = 0; i < 10000; i ++)
+        for (let i = 0; i < 1000; i ++)
         if (this.create_walls())
             break;
+        this.add_listening_events();
     }
 
     update_size(){
@@ -85,8 +125,25 @@ export class GameMap extends GameObject{
         this.ctx.canvas.height = this.L * this.rows;
     }
 
+    check_ready(){
+        for (const snack of this.snacks){
+            if (snack.direction === -1) return false;
+            if (snack.status !== "idle") return false;
+        }
+        return true;
+    }
+
+    next_step(){
+        for (const snack of this.snacks){
+            snack.next_step();
+        }
+    }
+
     update(){
         this.update_size();
+        if (this.check_ready()){
+            this.next_step();    
+        }
         this.render();
     }
 

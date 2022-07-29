@@ -22,7 +22,8 @@ export class GameObject{
     destroy(){
         this.on_destory();
         for (let i in GAME_OBJECTS){
-            if (GAME_OBJECTS[i] === this){
+            const object = GAME_OBJECTS[i];
+            if (object === this){
                 GAME_OBJECTS.splice(i, 1);
                 break;
             }
@@ -31,7 +32,7 @@ export class GameObject{
 
 }
 
-let last_timestamp = 0;
+let last_timestamp;
 const step = (timestamp)=>{
     for (let object of GAME_OBJECTS){
         if (!object.call_starttime){
