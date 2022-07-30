@@ -14,16 +14,30 @@
                         <router-link :class="route_name == 'ranklist'? 'nav-link active' : 'nav-link'" :to="{name: 'ranklist'}">排行榜</router-link>
                     </li>
                 </ul>
-                <ul class="navbar-nav">
+                <ul v-if="$store.state.user.is_login" class="navbar-nav">
                     <ul class="navbar-nav">
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                mrchen
+                                {{$store.state.user.username}}
                             </a>
                             <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
                                 <li><router-link class="dropdown-item" :to="{name: 'myinfo'}">我的信息</router-link></li>
-                                <li><router-link class="dropdown-item" :to="{name: 'logout'}">退出</router-link></li>
+                                <li><router-link @click="logout" class="dropdown-item" :to="{name: 'user_account_login'}">退出</router-link></li>
                             </ul>
+                        </li>
+                    </ul>
+                </ul>
+                <ul v-else class="navbar-nav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item ">
+                            <router-link class="nav-link" :to="{name: 'user_account_login'}" role="button">
+                                登录
+                            </router-link>
+                        </li>
+                        <li class="nav-item">
+                            <router-link class="nav-link" :to="{name: 'user_account_register'}" role="button">
+                                注册
+                            </router-link>
                         </li>
                     </ul>
                 </ul>
@@ -35,15 +49,22 @@
 <script>
 import { useRoute } from 'vue-router';
 import { computed } from 'vue';
+import { useStore } from 'vuex';
 
 export default{
     name: 'NavBar',
     setup(){
         const route = useRoute();
+        const store = useStore();
+
         let route_name = computed(()=> route.name);
+        const logout = ()=>{
+            store.commit("logout");
+        }
+
         return {
             route_name,
-
+            logout,
         }
     }
 }

@@ -4,7 +4,8 @@ import GamelistView from '@/views/gamelist/GamelistView.vue';
 import myinfoView from '@/views/user/myinfo/myinfoView.vue';
 import NotfoundView from '@/views/notfound/NotfoundView.vue';
 import RanklistView from '@/views/ranklist/RanklistView.vue';
-import LogoutView from '@/views/logout/LogoutView.vue';
+import UserAccountLoginView from "@/views/user/account/UserAccountLoginView";
+import UserAccountRegisterView from "@/views/user/account/UserAccountRegisterView";
 
 const routes = [
   {
@@ -28,6 +29,16 @@ const routes = [
     component: myinfoView,
   },
   {
+    name: 'user_account_login',
+    path: '/user/account/login/',
+    component: UserAccountLoginView,
+  },
+  {
+    name: 'user_account_register',
+    path: '/user/account/register/',
+    component: UserAccountRegisterView,
+  },
+  {
     name: '404',
     path: '/404/',
     component: NotfoundView,
@@ -36,11 +47,6 @@ const routes = [
     name: 'ranklist',
     path: '/ranklist/',
     component: RanklistView,
-  },
-  {
-    name: 'logout',
-    path: '/logout/',
-    component: LogoutView,
   },
   {
     path: '/:catchAll(.*)',

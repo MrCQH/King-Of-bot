@@ -1,6 +1,6 @@
 <template>
     <ContentView>
-        退出
+        注册
     </ContentView>
 </template>
 
@@ -8,7 +8,7 @@
 import ContentView from '@/components/ContentView.vue';
 
 export default{
-    name: "LogoutView",
+    name: "UserAccountRegisterView",
     components: { ContentView }
 }
 </script>
