@@ -27,7 +27,7 @@
                         </li>
                     </ul>
                 </ul>
-                <ul v-else class="navbar-nav">
+                <ul v-else-if="!$store.state.user.pulling_info" class="navbar-nav">
                     <ul class="navbar-nav">
                         <li class="nav-item ">
                             <router-link class="nav-link" :to="{name: 'user_account_login'}" role="button">

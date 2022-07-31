@@ -7,6 +7,7 @@ const ModuleUser = {
         photo: "",
         token: "",
         is_login: false,
+        pulling_info: true,
     },
     getters: {
     },
@@ -26,6 +27,10 @@ const ModuleUser = {
             state.photo = "";
             state.token = "";
             state.is_login = false;
+            localStorage.clear("jwt_token");
+        },
+        updatePullingInfo(state, pulling_info){
+            state.pulling_info = pulling_info;
         }
     },
     actions: {
@@ -39,6 +44,7 @@ const ModuleUser = {
                 },
                 success(resp){
                     if (resp.error_message === "success"){
+                        localStorage.setItem("jwt_token", resp.token);
                         context.commit("updateToken", resp.token);
                         data.success(resp);
                     } else {
