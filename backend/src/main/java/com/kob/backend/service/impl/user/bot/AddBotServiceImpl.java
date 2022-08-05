@@ -63,6 +63,7 @@ public class AddBotServiceImpl implements AddBotService {
 
         if (content == null || content.length() == 0){
             map.put("error_message", "代码内容不能为空");
+            return map;
         }
 
         if (content.length() > 10000){
