@@ -22,7 +22,7 @@ export class GameMap extends GameObject{
             new Snack({id: 1, color: "#ea544a", r: 1, c: this.cols - 2}, this),
         ];
     }
-
+    
     check_valid(cell){
         for (const wall of this.walls){
             if (wall.r === cell.r && wall.c === cell.c) return false;
@@ -40,6 +40,7 @@ export class GameMap extends GameObject{
         return true;
     }
 
+
     create_walls(){
         const g = this.store.state.battle.gamemap;
 
@@ -56,16 +57,19 @@ export class GameMap extends GameObject{
     add_listening_events(){
         this.ctx.canvas.focus();
 
-        const [snack0, snack1] = this.snacks;
         this.ctx.canvas.addEventListener("keydown", e =>{
-            if (e.key === 'w') snack0.set_direction(0);
-            else if (e.key === 'd') snack0.set_direction(1);
-            else if (e.key === 's') snack0.set_direction(2);
-            else if (e.key === 'a') snack0.set_direction(3);
-            else if (e.key === 'ArrowUp') snack1.set_direction(0);
-            else if (e.key === 'ArrowRight') snack1.set_direction(1);
-            else if (e.key === 'ArrowDown') snack1.set_direction(2);
-            else if (e.key === 'ArrowLeft') snack1.set_direction(3);
+            let d = -1;
+            if (e.key === 'w') d = 0;
+            else if (e.key === 'd') d = 1;
+            else if (e.key === 's') d = 2;
+            else if (e.key === 'a') d = 3;
+
+            if (d >= 0){
+                this.store.state.battle.socket.send(JSON.stringify({
+                    event: "move",
+                    direction: d,
+                }))
+            }
         });
     }
 
@@ -80,7 +84,7 @@ export class GameMap extends GameObject{
         this.ctx.canvas.height = this.L * this.rows;
     }
 
-    check_ready(){
+    check_ready(){ // 判断两条蛇是否都准备好下一回合了
         for (const snack of this.snacks){
             if (snack.direction === -1) return false;
             if (snack.status !== "idle") return false;

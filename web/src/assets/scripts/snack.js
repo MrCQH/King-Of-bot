@@ -12,7 +12,7 @@ export class Snack extends GameObject{
         this.cells = [new Cell(info.r, info.c)];
         this.next_cell = null; //下一步的目标位置
 
-        this.speed = 5;
+        this.speed = 5; // 蛇每秒走5个格子
         this.direction = -1; // -1表示没有方向 0,1,2,3表示上右下左
         this.dr = [-1, 0, 1, 0];
         this.dc = [0, 1, 0, -1];
@@ -46,12 +46,13 @@ export class Snack extends GameObject{
         return false;
     }
 
+
     set_direction(d){
         this.direction = d;
     }
 
     next_step(){ //进入下一步的状态
-        const d = this.direction;
+        let d = this.direction;
         this.next_cell = new Cell(this.cells[0].r + this.dr[d], this.cells[0].c + this.dc[d]);
         this.direction = -1;
         this.eye_direction = d;
@@ -61,10 +62,6 @@ export class Snack extends GameObject{
         const k = this.cells.length;
         for (let i = k; i > 0; i --){
             this.cells[i] = JSON.parse(JSON.stringify(this.cells[i - 1]));
-        }
-
-        if (!this.gamemap.check_valid(this.next_cell)){
-            this.status = "die";
         }
     }
 
@@ -139,5 +136,6 @@ export class Snack extends GameObject{
             ctx.arc(eye_x, eye_y, L * 0.05, 0, Math.PI * 2);
             ctx.fill();
         }
+
     }
 }
