@@ -1,10 +1,13 @@
 package com.kob.backend.consumer.utils;
 
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.kob.backend.config.RestTemplateConfig;
 import com.kob.backend.consumer.WebSocketServer;
+import com.kob.backend.mapper.UserMapper;
 import com.kob.backend.pojo.Bot;
 import com.kob.backend.pojo.Record;
+import com.kob.backend.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
@@ -276,7 +279,26 @@ public class Game extends Thread{
         }
     }
 
+    private void updateRating(Player player, Integer rating){
+        User user = WebSocketServer.userMapper.selectById(player.getId());
+        user.setRating(rating);
+        WebSocketServer.userMapper.updateById(user);
+    }
+
     private void saveToDatabase(){
+        Integer ratingA = WebSocketServer.userMapper.selectById(playerA.getId()).getRating();
+        Integer ratingB = WebSocketServer.userMapper.selectById(playerB.getId()).getRating();
+        if ("a".equals(loser)){
+            ratingA -= 2;
+            ratingB += 5;
+        } else if ("b".equals(loser)){
+            ratingB -= 2;
+            ratingA += 5;
+        }
+
+        updateRating(playerA, ratingA);
+        updateRating(playerB, ratingB);
+
         Record record = new Record(
                 null,
                 playerA.getId(),

@@ -41,13 +41,14 @@ export default{
             socket.onmessage = msg =>{
                 const data = JSON.parse(msg.data);
                 if (data.event === "start-matching"){ // 匹配成功
+                    store.commit("updateIsRecord", false);
                     store.commit("updateOpponent",{
                         username: data.opponent_username,
                         photo: data.opponent_photo,
                     });
                     setTimeout(()=>{
                         store.commit("updateStatus", "playing");
-                    }, 200);
+                    }, 5000);
                     store.commit("updateGame", data.game);
                 } else if (data.event === "move"){
                     console.log(data);

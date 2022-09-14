@@ -8,10 +8,10 @@
                         <router-link :class="route_name == 'battle' ? 'nav-link active' : 'nav-link'" aria-current="page" :to="{name: 'battle'}">对战</router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link :class="route_name == 'gamelist' ? 'nav-link active' : 'nav-link'" :to="{name: 'gamelist'}">对局列表</router-link>
+                        <router-link :class="route_name == 'record_list' ? 'nav-link active' : 'nav-link'" :to="{name: 'record_list'}">对局列表</router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link :class="route_name == 'ranklist'? 'nav-link active' : 'nav-link'" :to="{name: 'ranklist'}">排行榜</router-link>
+                        <router-link :class="route_name == 'rank_list'? 'nav-link active' : 'nav-link'" :to="{name: 'rank_list'}">排行榜</router-link>
                     </li>
                 </ul>
                 <ul v-if="$store.state.user.is_login" class="navbar-nav">

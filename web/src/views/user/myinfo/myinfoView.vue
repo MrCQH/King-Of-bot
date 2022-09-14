@@ -190,7 +190,7 @@ export default {
         });
 
         const refresh_bots = ()=>{
-                $.ajax({
+            $.ajax({
                 url: "http://127.0.0.1:3000/user/bot/getlist/",
                 type: "get",
                 headers: {

@@ -1,9 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import BattleView from '@/views/battle/BattleView.vue';
-import GamelistView from '@/views/gamelist/GamelistView.vue';
+import RecordListView from '@/views/recordlist/RecordListView';
+import RecordContentView from '@/views/recordlist/RecordContentView';
 import myinfoView from '@/views/user/myinfo/myinfoView.vue';
 import NotfoundView from '@/views/notfound/NotfoundView.vue';
-import RanklistView from '@/views/ranklist/RanklistView.vue';
+import RankListView from '@/views/ranklist/RankListView.vue';
 import UserAccountLoginView from "@/views/user/account/UserAccountLoginView";
 import UserAccountRegisterView from "@/views/user/account/UserAccountRegisterView";
 import store from "@/store/index";
@@ -26,9 +27,17 @@ const routes = [
     },
   },
   {
-    name: 'gamelist',
-    path: '/gamelist/',
-    component: GamelistView,
+    name: 'record_list',
+    path: '/recordlist/',
+    component: RecordListView,
+    meta: {
+      requstAuth: true,
+    },
+  },
+  {
+    name: 'record_content',
+    path: '/recordcontent/:recordId/',
+    component: RecordContentView,
     meta: {
       requstAuth: true,
     },
@@ -63,9 +72,9 @@ const routes = [
     component: NotfoundView,
   },
   {
-    name: 'ranklist',
+    name: 'rank_list',
     path: '/ranklist/',
-    component: RanklistView,
+    component: RankListView,
     meta: {
       requstAuth: true,
     },

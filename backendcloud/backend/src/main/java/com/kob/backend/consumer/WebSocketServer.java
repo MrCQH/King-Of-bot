@@ -32,7 +32,7 @@ public class WebSocketServer {
     private static final String addPlayerUrl = "http://127.0.0.1:3001/player/add/";
     private static final String removePlayerUrl = "http://127.0.0.1:3001/player/remove/";
 
-    private static UserMapper userMapper;
+    public static UserMapper userMapper;
     public static RecordMapper recordMapper;
     public static RestTemplate restTemplate;
     private static BotMapper botMapper;

@@ -2,6 +2,7 @@ package com.kob.botruningsystem.utils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Bot implements com.kob.botruningsystem.utils.BotInterface{
     static class Cell{
@@ -61,11 +62,13 @@ public class Bot implements com.kob.botruningsystem.utils.BotInterface{
         for (Cell c : cellB) g[c.x][c.y] = 1;
 
         int[] dx = {-1, 0, 1, 0}, dy = {0, 1, 0, -1};
-        for (int i = 0; i < 4; i ++){
-            int x = cellA.get(cellA.size() - 1).x + dx[i];
-            int y = cellA.get(cellA.size() - 1).y + dy[i];
+        Random random = new Random();
+        for (int i = 0; i < 1000; i ++){
+            int d = random.nextInt(4); // 0 - 3
+            int x = cellA.get(cellA.size() - 1).x + dx[d];
+            int y = cellA.get(cellA.size() - 1).y + dy[d];
             if (x >= 0 && x < 13 && y >= 0 && y < 14 && g[x][y] == 0){
-                return i;
+                return d;
             }
         }
         return 0;
