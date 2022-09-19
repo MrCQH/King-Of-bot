@@ -14,7 +14,7 @@ public class GetBattleListController {
     @Autowired
     private GetBattleListService getBattleListService;
 
-    @GetMapping("/record/getList/")
+    @GetMapping("/api/record/getList/")
     public JSONObject getList(@RequestParam Map<String, String> data){
         Integer page = Integer.parseInt(data.get("page"));
         return getBattleListService.getBattleList(page);

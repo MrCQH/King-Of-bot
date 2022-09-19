@@ -37,7 +37,7 @@ const ModuleUser = {
         login(context, data){
             $.ajax({
                 type: "post",
-                url: "http://127.0.0.1:3000/user/account/token/",
+                url: "https://app2971.acapp.acwing.com.cn/api/user/account/token/",
                 data: {
                   username: data.username,
                   password: data.password,
@@ -58,7 +58,7 @@ const ModuleUser = {
         },
         getinfo(context, data){
             $.ajax({
-                url:"http://127.0.0.1:3000/user/account/info/",
+                url:"https://app2971.acapp.acwing.com.cn/api/user/account/info/",
                 headers:{
                   Authorization: "Bearer " + context.state.token,
                 },

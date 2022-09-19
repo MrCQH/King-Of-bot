@@ -13,7 +13,7 @@ public class UpdataBotcontroller {
     @Autowired
     private UpdataBotService updataBotService;
 
-    @PostMapping("/user/bot/modify/")
+    @PostMapping("/api/user/bot/modify/")
     public Map<String, String> modify(@RequestParam Map<String, String> data){
         return updataBotService.updata(data);
     }

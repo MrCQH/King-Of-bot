@@ -69,7 +69,7 @@ public class MatchingPool extends Thread{
     }
 
     private void startMatching(){ //尝试匹配
-        System.out.println("players: " + players.toString());
+//        System.out.println("players: " + players.toString());
         List<Player> newPlayers = new ArrayList<>();
         boolean[] used = new boolean[players.size()];
         if (!players.isEmpty()){

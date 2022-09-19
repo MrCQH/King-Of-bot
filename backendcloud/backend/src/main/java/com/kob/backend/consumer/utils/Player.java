@@ -1,6 +1,5 @@
 package com.kob.backend.consumer.utils;
 
-import com.apple.eawt.AppEvent;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -2,6 +2,8 @@
     <PlayGround v-if="$store.state.battle.status === 'playing'" />
     <MatchGround v-if="$store.state.battle.status === 'matching'" />
     <ResultBoard v-if="$store.state.battle.loser !== 'none'"/>
+    <div v-if="parseInt($store.state.user.id) === parseInt($store.state.battle.a_id) && $store.state.battle.status === 'playing'" class="user-info">左下角</div>
+    <div v-if="parseInt($store.state.user.id) === parseInt($store.state.battle.b_id) && $store.state.battle.status === 'playing'" class="user-info">右上角</div>
 </template>
 
 <script>
@@ -22,7 +24,7 @@ export default{
         const store = useStore();
 
         let socket = null;
-        let socketUrl = `ws://127.0.0.1:3000/websocket/${store.state.user.token}`;
+        let socketUrl = `wss://app2971.acapp.acwing.com.cn/websocket/${store.state.user.token}`;
 
         onMounted(() => { // 在组建加载时，执行
 
@@ -48,7 +50,7 @@ export default{
                     });
                     setTimeout(()=>{
                         store.commit("updateStatus", "playing");
-                    }, 5000);
+                    }, 200);
                     store.commit("updateGame", data.game);
                 } else if (data.event === "move"){
                     console.log(data);
@@ -85,4 +87,10 @@ export default{
 </script>
 
 <style scoped>
+.user-info{
+    text-align: center;
+    font-weight: 700;
+    color: lightgoldenrodyellow;
+    font-size: 36px;
+}
 </style>
