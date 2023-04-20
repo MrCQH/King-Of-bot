@@ -168,6 +168,7 @@ import {reactive, ref} from "vue";
 import { Modal } from "bootstrap/dist/js/bootstrap";
 import { VAceEditor } from 'vue3-ace-editor';
 import ace from 'ace-builds';
+import baseUrl from "@/config/config";
 
 
 export default {
@@ -191,7 +192,7 @@ export default {
 
         const refresh_bots = ()=>{
             $.ajax({
-                url: "http://localhost:3000/api/user/bot/getlist/",
+                url: baseUrl.remoteHttpsUrl + "/api/user/bot/getlist/",
                 type: "get",
                 headers: {
                     Authorization: "Bearer " + store.state.user.token,
@@ -207,7 +208,7 @@ export default {
         const add_bot = ()=>{
             botadd.error_message = "";
             $.ajax({
-                url: "http://localhost:3000/api/user/bot/add/",
+                url: baseUrl.remoteHttpsUrl + "/api/user/bot/add/",
                 type: "POST",
                 headers: {
                     Authorization: "Bearer " + store.state.user.token,
@@ -234,7 +235,7 @@ export default {
 
         const remove_bot = (bot)=>{
             $.ajax({
-                url: "http://localhost:3000/api/user/bot/remove/",
+                url: baseUrl.remoteHttpsUrl + "/api/user/bot/remove/",
                 type: "POST",
                 headers: {
                     Authorization: "Bearer " + store.state.user.token,
@@ -254,7 +255,7 @@ export default {
         const updata_bot = (bot)=>{
             botadd.error_message = "";
             $.ajax({
-                url: "http://localhost:3000/api/user/bot/modify/",
+                url: baseUrl.remoteHttpsUrl + "/api/user/bot/modify/",
                 type: "POST",
                 headers: {
                     Authorization: "Bearer " + store.state.user.token,

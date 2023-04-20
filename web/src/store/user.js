@@ -1,4 +1,5 @@
 import $ from "jquery";
+import baseUrl from "@/config/config.js"
 
 const ModuleUser = {
     state: {
@@ -42,7 +43,7 @@ const ModuleUser = {
         login(context, data){
             $.ajax({
                 type: "post",
-                url: "http://localhost:3000/api/user/account/token/",
+                url: baseUrl.remoteHttpsUrl + "/api/user/account/token/",
                 data: {
                   username: data.username,
                   password: data.password,
@@ -63,7 +64,7 @@ const ModuleUser = {
         },
         getinfo(context, data){
             $.ajax({
-                url:"http://localhost:3000/api/user/account/info/",
+                url: baseUrl.remoteHttpsUrl + "/api/user/account/info/",
                 headers:{
                   Authorization: "Bearer " + context.state.token,
                 },

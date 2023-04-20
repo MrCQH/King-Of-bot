@@ -43,6 +43,7 @@ import ContentView from '@/components/ContentView.vue';
 import { ref } from 'vue';
 import $ from 'jquery';
 import { useStore } from "vuex";
+import baseUrl from "@/config/config";
 
 export default{
     name: "RecordListView",
@@ -81,7 +82,7 @@ export default{
         const pull_page = page =>{
             current_page = page;
             $.ajax({
-                url: "http://localhost:3000/api/rank/list/",
+                url: baseUrl.remoteHttpsUrl + "/api/rank/list/",
                 type: "get",
                 data:{
                     page,

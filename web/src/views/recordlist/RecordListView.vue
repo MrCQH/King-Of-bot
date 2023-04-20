@@ -61,6 +61,7 @@ import { ref } from 'vue';
 import $ from 'jquery';
 import { useStore } from "vuex";
 import router from '@/router';
+import baseUrl from "@/config/config";
 
 export default{
     name: "RecordListView",
@@ -99,7 +100,7 @@ export default{
         const pull_page = page =>{
             current_page = page;
             $.ajax({
-                url: "http://localhost:3000/api/record/getList/",
+                url: baseUrl.remoteHttpsUrl + "/api/record/getList/",
                 type: "get",
                 data:{
                     page,

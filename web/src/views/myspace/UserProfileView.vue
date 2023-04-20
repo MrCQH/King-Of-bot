@@ -22,6 +22,7 @@ import { useRoute } from 'vue-router';
 import $ from 'jquery';
 import { useStore } from 'vuex';
 import { computed } from 'vue';
+import baseUrl from "@/config/config";
 
 export default {
   name: 'UserProfileView',
@@ -46,7 +47,7 @@ export default {
 
     $.ajax({
       type: "GET",
-      url: "http://localhost:3000/api/myspaces/getInfo/",
+      url: baseUrl.remoteHttpsUrl + "/api/myspaces/getInfo/",
       data: {
         userId: userId
       },
@@ -63,7 +64,7 @@ export default {
     });
 
     $.ajax({
-      url:"http://localhost:3000/api/myspaces/post/",
+      url: baseUrl.remoteHttpsUrl + "/api/myspaces/post/",
       type: "GET",
       headers: {
         'Authorization': 'Bearer ' + store.state.user.token,

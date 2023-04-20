@@ -14,6 +14,7 @@
 import {ref} from 'vue';
 import $ from 'jquery';
 import { useStore } from 'vuex';
+import baseUrl from "@/config/config";
 
 export default{
     name:'UserProfileWrite',
@@ -25,7 +26,7 @@ export default{
         const post_a_post = ()=>{
             $.ajax({
                 type: "POST",
-                url: "http://localhost:3000/api/myspaces/post/",
+                url: baseUrl.remoteHttpsUrl + "/api/myspaces/post/",
                 data:{
                     content: content.value,
                 },

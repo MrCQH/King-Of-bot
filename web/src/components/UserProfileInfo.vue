@@ -21,6 +21,7 @@ import { useStore } from 'vuex';
 import $ from 'jquery';
 import {useRoute} from "vue-router";
 import { computed } from "vue";
+import baseUrl from "@/config/config";
 
 export default{
     name: 'UserProfileInfo',
@@ -37,7 +38,7 @@ export default{
       const follow = ()=>{
         $.ajax({
           type: "POST",
-          url: "http://localhost:3000/api/myspaces/updatefollower/",
+          url: baseUrl.remoteHttpsUrl + "/api/myspaces/updatefollower/",
           headers: {
               "Authorization": "Bearer " + store.state.user.token,
           },
@@ -59,7 +60,7 @@ export default{
         const unfollow = ()=>{
           $.ajax({
             type: "POST",
-            url: "http://localhost:3000/api/myspaces/updatefollower/",
+            url: baseUrl.remoteHttpsUrl + "/api/myspaces/updatefollower/",
             headers: {
                 "Authorization": "Bearer " + store.state.user.token,
             },

@@ -28,6 +28,7 @@ import ContentView from '@/components/ContentView.vue';
 import $ from  "jquery";
 import {ref} from "vue";
 import router from "@/router/index";
+import baseUrl from "@/config/config";
 
 export default{
     name: "UserAccountRegisterView",
@@ -41,7 +42,7 @@ export default{
         const register = ()=>{
             $.ajax({
                 type: "post",
-                url: "http://localhost:3000/api/user/account/register/",
+                url: baseUrl.remoteHttpsUrl + "/api/user/account/register/",
                 data: {
                   username: username.value,
                   password: password.value,

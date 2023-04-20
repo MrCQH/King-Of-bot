@@ -22,6 +22,7 @@ import $ from 'jquery';
 import { ref } from 'vue';
 import router from '@/router/index';
 import { useStore } from 'vuex';
+import baseUrl from "@/config/config";
 
 export default {
   name: 'UserListView',
@@ -34,7 +35,7 @@ export default {
 
     $.ajax({
       type: "get",
-      url: "http://localhost:3000/api/myspaces/usersList/",
+      url: baseUrl.remoteHttpsUrl + "/api/myspaces/usersList/",
       headers:{
         Authorization: 'Bearer ' + store.state.user.token,
       },

@@ -12,6 +12,7 @@ import { onMounted, onUnmounted } from "vue"
 import { useStore } from 'vuex';
 import MatchGround from '@/components/MatchGround.vue';
 import ResultBoard from '@/components/ResultBoard.vue';
+import baseUrl from "@/config/config";
 
 export default{
     name: "BattleView",
@@ -24,7 +25,7 @@ export default{
         const store = useStore();
 
         let socket = null;
-        let socketUrl = `ws://localhost:3000/websocket/${store.state.user.token}`;
+        let socketUrl = baseUrl.remoteWssUrl + `/websocket/${store.state.user.token}`;
 
         onMounted(() => { // 在组建加载时，执行
 

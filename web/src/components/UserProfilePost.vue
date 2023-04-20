@@ -17,6 +17,7 @@
 import { computed } from 'vue'
 import { useStore } from 'vuex'
 import $ from 'jquery';
+import baseUrl from "@/config/config";
 
 export default{
     name: 'UserProfilePost',
@@ -37,7 +38,7 @@ export default{
         const delete_a_post = (post_id)=>{
             $.ajax({
                 type: "DELETE",
-                url: "http://localhost:3000/api/myspace/post/",
+                url: baseUrl.remoteHttpsUrl + "/api/myspace/post/",
                 data: {
                     post_id
                 },
