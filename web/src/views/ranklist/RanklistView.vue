@@ -81,7 +81,7 @@ export default{
         const pull_page = page =>{
             current_page = page;
             $.ajax({
-                url: "https://app2971.acapp.acwing.com.cn/api/rank/list/",
+                url: "http://localhost:3000/api/rank/list/",
                 type: "get",
                 data:{
                     page,
@@ -90,7 +90,6 @@ export default{
                     Authorization: "Bearer " + store.state.user.token,
                 },
                 success(resp){
-                    console.log(resp);
                     users.value = resp.users;
                     users_count = resp.users_count;
                     update_pages();

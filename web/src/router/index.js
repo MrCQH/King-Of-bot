@@ -8,6 +8,11 @@ import RankListView from '@/views/ranklist/RankListView.vue';
 import UserAccountLoginView from "@/views/user/account/UserAccountLoginView";
 import UserAccountRegisterView from "@/views/user/account/UserAccountRegisterView";
 import store from "@/store/index";
+import userProfileView from "@/views/myspace/UserProfileView";
+import userListView from "@/views/myspace/UserListView";
+import userProfileInfo from "@/components/UserProfileInfo";
+import userProfilePost from "@/components/UserProfilePost";
+import userProfileWrite from "@/components/UserProfileWrite";
 
 const routes = [
   {
@@ -41,6 +46,46 @@ const routes = [
     meta: {
       requstAuth: true,
     },
+  },
+  {
+    name: 'my_spaces',
+    path: '/user/my_space/',
+    component: userListView,
+    meta: {
+      requstAuth: true,
+    }
+  },
+  {
+    name: 'userprofile',
+    path: '/user/profile/:userId/',
+    component: userProfileView,
+    meta: {
+      requstAuth: true,
+    }
+  },
+  {
+    name: 'userProfileInfo',
+    path: '/user/info/',
+    component: userProfileInfo,
+    meta: {
+      requstAuth: true,
+    }
+  },
+  {
+    name: 'userProfilePost',
+    path: '/user/post/',
+    component: userProfilePost,
+    meta: {
+      requstAuth: true,
+    }
+  },
+  {
+    name: 'userProfileWrite',
+    path: '/user/write/',
+    component: userProfileWrite,
+    meta: {
+      requstAuth: true,
+    }
   },
   {
     name: 'myinfo',

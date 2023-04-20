@@ -8,6 +8,8 @@ const ModuleUser = {
         token: "",
         is_login: false,
         pulling_info: true,
+        followerCount: 0,
+        refresh: "",
     },
     getters: {
     },
@@ -17,6 +19,8 @@ const ModuleUser = {
             state.id = user.id;
             state.photo = user.photo;
             state.is_login = user.is_login;
+            state.followerCount = user.followerCount;
+            state.refresh = user.refresh;
         },
         updateToken(state, token){
             state.token = token;
@@ -27,6 +31,7 @@ const ModuleUser = {
             state.photo = "";
             state.token = "";
             state.is_login = false;
+            state.refresh = "";
             localStorage.clear("jwt_token");
         },
         updatePullingInfo(state, pulling_info){
@@ -37,7 +42,7 @@ const ModuleUser = {
         login(context, data){
             $.ajax({
                 type: "post",
-                url: "https://app2971.acapp.acwing.com.cn/api/user/account/token/",
+                url: "http://localhost:3000/api/user/account/token/",
                 data: {
                   username: data.username,
                   password: data.password,
@@ -58,7 +63,7 @@ const ModuleUser = {
         },
         getinfo(context, data){
             $.ajax({
-                url:"https://app2971.acapp.acwing.com.cn/api/user/account/info/",
+                url:"http://localhost:3000/api/user/account/info/",
                 headers:{
                   Authorization: "Bearer " + context.state.token,
                 },

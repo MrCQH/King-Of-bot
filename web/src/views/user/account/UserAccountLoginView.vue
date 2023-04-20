@@ -1,5 +1,6 @@
 <template>
     <ContentView v-if="!$store.state.user.pulling_info">
+
         <div class="row justify-content-md-center">
             <div class="col-3">
                 <form @submit.prevent="login">

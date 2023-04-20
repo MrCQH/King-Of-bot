@@ -4,19 +4,19 @@
             <thead>
                 <tr>
                     <th scope="col">
-                        <div style="margin-left:0.5rem">玩家A</div>
+                        <div>玩家A</div>
                     </th>
                     <th scope="col">
-                        <div style="margin-left:3rem">玩家B</div>
+                        <div>玩家B</div>
                     </th>
                     <th scope="col">
-                        <div style="margin-left:3rem">对局结果</div>
+                        <div>对局结果</div>
                     </th>
                     <th scope="col">
-                        <div style="margin-left:3rem">创建时间</div>
+                        <div>创建时间</div>
                     </th>
                     <th scope="col">
-                        <div style="margin-left:3rem">操作</div>
+                        <div>操作</div>
                     </th>
                 </tr>
             </thead>
@@ -99,7 +99,7 @@ export default{
         const pull_page = page =>{
             current_page = page;
             $.ajax({
-                url: "https://app2971.acapp.acwing.com.cn/api/record/getList/",
+                url: "http://localhost:3000/api/record/getList/",
                 type: "get",
                 data:{
                     page,

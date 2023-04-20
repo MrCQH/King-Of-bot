@@ -7,7 +7,7 @@ export class GameMap extends GameObject{
         super();
 
         this.store = store;
-        this.ctx = ctx,
+        this.ctx = ctx;
         this.parent = parent; // 根据父元素动态变化的map大小
         this.L = 0; // 一个单位的长度
 
@@ -81,11 +81,10 @@ export class GameMap extends GameObject{
 
             this.ctx.canvas.addEventListener("keydown", e =>{
                 let d = -1;
-                if (e.key === 'w') d = 0;
-                else if (e.key === 'd') d = 1;
-                else if (e.key === 's') d = 2;
-                else if (e.key === 'a') d = 3;
-
+                if (e.key === 'w' || e.key === 'W') d = 0;
+                else if (e.key === 'd' || e.key === 'D') d = 1;
+                else if (e.key === 's' || e.key === 'S') d = 2;
+                else if (e.key === 'a' || e.key === 'A') d = 3;
                 if (d >= 0){
                     this.store.state.battle.socket.send(JSON.stringify({
                         event: "move",
@@ -133,7 +132,7 @@ export class GameMap extends GameObject{
         const color_even = "#b2d45f", color_odd = "#a9cd56";
         for (let r = 0; r < this.rows; r ++){
             for (let c = 0; c < this.cols; c ++){
-                if ((r + c) % 2 == 0){
+                if ((r + c) % 2 === 0){
                     this.ctx.fillStyle = color_even;
                 } else {
                     this.ctx.fillStyle = color_odd;

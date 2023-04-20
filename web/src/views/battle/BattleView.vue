@@ -24,7 +24,7 @@ export default{
         const store = useStore();
 
         let socket = null;
-        let socketUrl = `wss://app2971.acapp.acwing.com.cn/websocket/${store.state.user.token}`;
+        let socketUrl = `ws://localhost:3000/websocket/${store.state.user.token}`;
 
         onMounted(() => { // 在组建加载时，执行
 
@@ -36,7 +36,6 @@ export default{
             socket = new WebSocket(socketUrl);
 
             socket.onopen = () =>{
-                console.log("connected!");
                 store.commit("updateSocket", socket);
             }
 
@@ -53,13 +52,11 @@ export default{
                     }, 200);
                     store.commit("updateGame", data.game);
                 } else if (data.event === "move"){
-                    console.log(data);
                     const game = store.state.battle.gameObject;
                     let [snack0, snack1] = game.snacks;
                     snack0.set_direction(data.a_direction);
                     snack1.set_direction(data.b_direction);
                 } else if (data.event === "result"){
-                    console.log(data);
                     const game = store.state.battle.gameObject;
                     let [snack0, snack1] = game.snacks;
                     if (data.loser === "all" || data.loser === "a"){
@@ -73,7 +70,7 @@ export default{
             }
 
             socket.onclose = () =>{
-                console.log("disconnected!");
+                // console.log("disconnected!");
             }
         });
 

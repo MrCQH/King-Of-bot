@@ -30,18 +30,18 @@
                                         <div class="modal-body">
                                             <div class="mb-3">
                                                 <label for="title" class="form-label">标题</label>
-                                                <input v-model="botadd.title" type="text" class="form-control" id="title" placeholder="请输入标题">
+                                                <input v-model="botadd.title" type="text" class="form-control" placeholder="请输入标题">
                                             </div>
                                         </div>
                                         <div class="modal-body">
                                             <div class="mb-3">
                                                 <label for="description" class="form-label">简介</label>
-                                                <textarea v-model="botadd.description" class="form-control" id="description" rows="3" placeholder="请输入简介"></textarea>
+                                                <textarea v-model="botadd.description" class="form-control"  rows="3" placeholder="请输入简介"></textarea>
                                             </div>
                                         </div>
                                         <div class="modal-body">
                                             <div class="mb-3">
-                                                <label for="code" class="form-label">代码</label>
+                                                <label class="form-label">代码</label>
                                                 <VAceEditor
                                                     v-model:value="botadd.content"
                                                     @init="editorInit"
@@ -110,7 +110,7 @@
                                                     </div>
                                                     <div class="modal-body">
                                                         <div class="mb-3">
-                                                            <label for="code" class="form-label">代码</label>
+                                                            <label class="form-label">代码</label>
                                                             <VAceEditor
                                                                 v-model:value="bot_info.content"
                                                                 @init="editorInit"
@@ -140,7 +140,7 @@
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                 <div class="modal-body" style="display:flex;justify-content: center;align-items: center;">
-                                                    <h5 class="modal-title" id="movetitle" style="font-weight: bold;font-size: 32px;">你真的要删除我吗?&gt;_&lt;</h5>
+                                                    <h5 class="modal-title" id="movetitle" style="font-weight: bold;font-size: 24px;">你确定要删除该Bot</h5>
                                                 </div>
                                                 <div class="modal-footer remove-border">
                                                     <button @click="remove_bot(bot_info)" type="button" class="btn btn-danger">删除</button>
@@ -191,7 +191,7 @@ export default {
 
         const refresh_bots = ()=>{
             $.ajax({
-                url: "https://app2971.acapp.acwing.com.cn/api/user/bot/getlist/",
+                url: "http://localhost:3000/api/user/bot/getlist/",
                 type: "get",
                 headers: {
                     Authorization: "Bearer " + store.state.user.token,
@@ -207,7 +207,7 @@ export default {
         const add_bot = ()=>{
             botadd.error_message = "";
             $.ajax({
-                url: "https://app2971.acapp.acwing.com.cn/api/user/bot/add/",
+                url: "http://localhost:3000/api/user/bot/add/",
                 type: "POST",
                 headers: {
                     Authorization: "Bearer " + store.state.user.token,
@@ -234,7 +234,7 @@ export default {
 
         const remove_bot = (bot)=>{
             $.ajax({
-                url: "https://app2971.acapp.acwing.com.cn/api/user/bot/remove/",
+                url: "http://localhost:3000/api/user/bot/remove/",
                 type: "POST",
                 headers: {
                     Authorization: "Bearer " + store.state.user.token,
@@ -254,7 +254,7 @@ export default {
         const updata_bot = (bot)=>{
             botadd.error_message = "";
             $.ajax({
-                url: "https://app2971.acapp.acwing.com.cn/api/user/bot/modify/",
+                url: "http://localhost:3000/api/user/bot/modify/",
                 type: "POST",
                 headers: {
                     Authorization: "Bearer " + store.state.user.token,
@@ -296,7 +296,7 @@ export default {
     color: red;
 }
 .remove-border{
-    border-bottom: 0ch;
-    border-top: 0ch;
+    border-bottom: 0;
+    border-top: 0;
 }
 </style>

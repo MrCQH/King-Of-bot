@@ -46,7 +46,6 @@ export default{
 
         const btn_info_update = ()=>{
             if (btn_info.value === "开始匹配"){
-                console.log(select_bot.value);
                 btn_info.value = "取消";
                 store.state.battle.socket.send(JSON.stringify({
                     event: "start-matching",
@@ -62,7 +61,7 @@ export default{
 
         const refresh_bots = ()=>{
                 $.ajax({
-                url: "https://app2971.acapp.acwing.com.cn/api/user/bot/getlist/",
+                url: "http://localhost:3000/api/user/bot/getlist/",
                 type: "get",
                 headers: {
                     Authorization: "Bearer " + store.state.user.token,
