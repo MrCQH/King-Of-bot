@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.kob.backend.mapper.UserMapper;
 import com.kob.backend.pojo.User;
 import com.kob.backend.service.user.account.RegisterService;
+import com.kob.backend.utils.VerifyUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -21,9 +22,18 @@ public class RegisterServiceImpl implements RegisterService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private VerifyUtil verifyUtil;
+
+
     @Override
-    public Map<String, String> register(String username, String password, String confirmPassword) {
+    public Map<String, String> register(String username, String password, String confirmPassword, String verifyCode) {
         Map<String, String> map = new HashMap<>();
+
+        if (verifyCode == null || verifyCode.length() == 0 || !verifyUtil.getRandomString().equals(verifyCode)){
+            map.put("error_message", "验证码错误");
+            return map;
+        }
 
         if (username == null){
             map.put("error_message", "用户名不能为空");

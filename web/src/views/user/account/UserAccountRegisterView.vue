@@ -15,7 +15,13 @@
                         <label for="confirmPassword" class="form-label">确认密码</label>
                         <input v-model="confirmPassword" type="password" class="form-control" id="confirmPassword" placeholder="请再次输入密码" autocomplete>
                     </div>
-                    <div class="error-message">{{ error_message}}</div>
+                    <img @click="refreshImg" :src="verifyImg">
+                    <br>
+                    <br>
+                    <div class="mb-3">
+                      <input v-model="verifyCode" type="text" class="form-control" id="verifyCode" placeholder="请输入验证码" autocomplete>
+                    </div>
+                    <div class="error-message">{{error_message}}</div>
                     <button type="submit" class="btn btn-success">注册</button>
                 </form>
             </div>
@@ -32,12 +38,29 @@ import baseUrl from "@/config/config";
 
 export default{
     name: "UserAccountRegisterView",
-    components: { ContentView },
+    components: {
+      ContentView,
+    },
     setup(){
         const username = ref("");
         const password = ref("");
         const confirmPassword = ref("");
         let error_message = ref("");
+        let verifyCode = ref("");
+        let verifyImg = ref("");
+
+        const refreshImg = () => {
+          $.ajax({
+            type: "GET",
+            url: baseUrl.remoteHttpsUrl + '/api/user/account/getVerifyImage/',
+            success(resp){
+              if (resp.error_message === "success"){
+                verifyImg.value = resp.url
+              }
+            },
+          });
+        }
+        refreshImg()
 
         const register = ()=>{
             $.ajax({
@@ -47,25 +70,32 @@ export default{
                   username: username.value,
                   password: password.value,
                   confirmPassword: confirmPassword.value,
+                  verifyCode: verifyCode.value
                 },
                 success(resp){
-                    if (resp.error_message === "success"){
-                        error_message.value = "";
-                        router.push({name: 'user_account_login'});
-                    } else {
-                        error_message.value = resp.error_message;
-                    }
-                },
-            });
-        };
+                  if (resp.error_message === "success"){
+                      router.push({name: 'user_account_login'});
+                      error_message.value = "";
+                  } else {
+                    error_message.value = resp.error_message;
+                    refreshImg();
+                    verifyCode.value = "";
+                  }
+              },
+          });
+      };
 
-        return {
-            username,
-            password,
-            confirmPassword,
-            error_message,
-            register,
-        }
+      return {
+        username,
+        password,
+        confirmPassword,
+        error_message,
+        register,
+        baseUrl,
+        verifyCode,
+        refreshImg,
+        verifyImg
+      }
     },
 }
 </script>
